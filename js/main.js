@@ -6,15 +6,17 @@ import {
   cargarDataClima,
   cargarDataPronostico,
   organizarPronostico,
-  dataPronostico,
   getPronosticoMinima,
   getPronosticoMaxima,
-  getCondicion
+  getCondicion,
+  getDescripcionClima,
 } from "./modules/api.js";
 
 async function main(ciudad) {
-  await cargarDataPronostico(ciudad);
-  console.log(getCondicion())
+  const pronostico = await cargarDataPronostico(ciudad);
+  const min = getPronosticoMaxima(pronostico);
+
+  console.log(min);
 }
 
 main("culiacan");

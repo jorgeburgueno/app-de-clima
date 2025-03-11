@@ -1,9 +1,6 @@
 const API_KEY = config.API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
-let dataClima = null;
-export let dataPronostico = null;
-
 export async function getClima(ciudad) {
   try {
     const respuesta = await fetch(
@@ -14,9 +11,7 @@ export async function getClima(ciudad) {
       throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
     }
 
-    let data = await respuesta.json();
-
-    return data;
+    return await respuesta.json();
   } catch (error) {
     console.error("No se tuvo respuesta", error.message);
     throw error;
@@ -24,15 +19,15 @@ export async function getClima(ciudad) {
 }
 
 export async function cargarDataClima(ciudad) {
-  dataClima = await getClima(ciudad);
+  return await getClima(ciudad);
 }
 
-export async function getTemperatura() {
+export async function getTemperatura(dataClima) {
   return dataClima?.main?.temp;
 }
 
-export async function getDescripcionClima() {
-  return await dataClima?.weather[0]?.description;
+export async function getDescripcionClima(dataClima) {
+  return dataClima?.weather[0]?.description;
 }
 
 // Pronosticos
@@ -60,7 +55,7 @@ export async function getPronostico(ciudad) {
 export async function cargarDataPronostico(ciudad) {
   try {
     const pronostico = await getPronostico(ciudad);
-    await organizarPronostico(pronostico);
+    return await organizarPronostico(pronostico);
   } catch (error) {
     console.error("Error al cargar el pronóstico", error.message);
     throw error;
@@ -104,19 +99,18 @@ export async function organizarPronostico(pronostico) {
       condicion: condicionMasFrecuente,
     };
   });
-  dataPronostico = agrupado;
-  console.log(dataPronostico);
+  return agrupado;
 }
 
-export function getPronosticoMinima() {
+export function getPronosticoMinima(dataPronostico) {
   return dataPronostico.map((element) => element.minTemp);
 }
 
-export function getPronosticoMaxima() {
+export function getPronosticoMaxima(dataPronostico) {
   return dataPronostico.map((element) => element.maxTemp);
 }
 
-export function getCondicion() {
+export function getCondicion(dataPronostico) {
   return dataPronostico.map((element) => element.condicion);
 }
 
