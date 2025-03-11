@@ -2,6 +2,7 @@ const API_KEY = config.API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 let dataClima = null;
+export let dataPronostico = null;
 
 export async function getClima(ciudad) {
   try {
@@ -26,13 +27,15 @@ export async function cargarDataClima(ciudad) {
   dataClima = await getClima(ciudad);
 }
 
-export function getTemperatura() {
+export async function getTemperatura() {
   return dataClima?.main?.temp;
 }
 
-export function getDescripcionClima() {
-  return dataClima?.weather[0]?.description;
+export async function getDescripcionClima() {
+  return await dataClima?.weather[0]?.description;
 }
+
+// Pronosticos
 
 export async function getPronostico(ciudad) {
   let coords = await getCoordenadas(ciudad);
@@ -47,12 +50,65 @@ export async function getPronostico(ciudad) {
     }
 
     let data = await respuesta.json();
-    return data;
+    return data.list;
   } catch (error) {
     console.error("No se tuvo respuesta", error.message);
     throw error;
   }
 }
+
+export async function cargarDataPronostico(ciudad) {
+  try {
+    const pronostico = await getPronostico(ciudad);
+    await organizarPronostico(pronostico);
+  } catch (error) {
+    console.error("Error al cargar el pronóstico", error.message);
+    throw error;
+  }
+}
+
+export async function organizarPronostico(pronostico) {
+  const pronosticoPorDia = {};
+
+  pronostico.forEach((element) => {
+    const fecha = element.dt_txt.split(" ")[0];
+
+    if (!pronosticoPorDia[fecha]) {
+      pronosticoPorDia[fecha] = {
+        temps: [element.main.temp],
+        condiciones: [element.weather[0].main],
+      };
+    } else {
+      pronosticoPorDia[fecha].temps.push(element.main.temp);
+      pronosticoPorDia[fecha].condiciones.push(element.weather[0].main);
+    }
+  });
+
+  const agrupado = Object.keys(pronosticoPorDia).map((fecha) => {
+    const temps = pronosticoPorDia[fecha].temps;
+    const condiciones = pronosticoPorDia[fecha].condiciones;
+
+    const condicion = condiciones.reduce((acc, curr) => {
+      acc[curr] = (acc[curr] || 0) + 1;
+      return acc;
+    }, {});
+
+    const condicionMasFrecuente = Object.keys(condicion).reduce((a, b) =>
+      condicion[a] > condicion[b] ? a : b
+    );
+
+    return {
+      fecha: fecha,
+      minTemp: Math.min(...temps),
+      maxTemp: Math.max(...temps),
+      condicion: condicionMasFrecuente,
+    };
+  });
+  dataPronostico = agrupado;
+  console.log(dataPronostico)
+}
+
+// obtener ubicacion
 
 export async function getCoordenadas(ciudad) {
   try {

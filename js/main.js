@@ -4,6 +4,13 @@ import {
   getPronostico,
   getUbicacion,
   cargarDataClima,
+  cargarDataPronostico,
+  organizarPronostico,
+  dataPronostico,
 } from "./modules/api.js";
 
-console.log(await getPronostico("culiacan"));
+async function asd(ciudad) {
+  await cargarDataPronostico(ciudad);
+}
+
+asd("culiacan");
