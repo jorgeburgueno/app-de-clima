@@ -7,8 +7,89 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+    <div class="container">
+      <header>
+        <nav class="nav">
+          <a href="#" class="nav__link">Hoy</a>
+          <a href="#" class="nav__link">Temperatura por Hora</a>
+          <a href="#" class="nav__link">Pronostico Semanal</a>
+        </nav>
+      </header>
 
-    
+      <main>
+        <section class="card">
+          <h2 class="card__ciudad">Ciudad</h2>
+          <h2 class="card__temp">23°C</h2>
+          <p class="card__sens">25°C</p>
+          <p class="card__desc">Soleado</p>
+        </section>
+
+        <section class="pronostico">
+          <h2 class="pronostico__titulo">Pronostico de 5 Dias</h2>
+          <div class="pronostico__dias">
+            <article class="pronostico__dia">
+              <h3 class="pronostico__dia__nombre">Lunes</h3>
+              <img
+                class="pronostico__icono"
+                src="https://openweathermap.org/img/wn/01d@2x.png"
+                alt="Clear sky"
+              />
+              <p class="pronostico__temp__max">30°C</p>
+              <p class="pronostico__temp__min">20°C</p>
+            </article>
+            <article class="pronostico__dia">
+              <h3 class="pronostico__dia__nombre">Martes</h3>
+              <img
+                class="pronostico__icono"
+                src="https://openweathermap.org/img/wn/02d@2x.png"
+                alt="Partly cloudy"
+              />
+              <p class="pronostico__temp__max">30°C</p>
+              <p class="pronostico__temp__min">20°C</p>
+            </article>
+            <article class="pronostico__dia">
+              <h3 class="pronostico__dia__nombre">Miercoles</h3>
+              <img
+                class="pronostico__icono"
+                src="https://openweathermap.org/img/wn/10d@2x.png"
+                alt="Rain"
+              />
+              <p class="pronostico__temp__max">30°C</p>
+              <p class="pronostico__temp__min">20°C</p>
+            </article>
+            <article class="pronostico__dia">
+              <h3 class="pronostico__dia__nombre">Jueves</h3>
+              <img
+                class="pronostico__icono"
+                src="https://openweathermap.org/img/wn/03d@2x.png"
+                alt="Cloudy"
+              />
+              <p class="pronostico__temp__max">30°C</p>
+              <p class="pronostico__temp__min">20°C</p>
+            </article>
+            <article class="pronostico__dia">
+              <h3 class="pronostico__dia__nombre">Viernes</h3>
+              <img
+                class="pronostico__icono"
+                src="https://openweathermap.org/img/wn/04d@2x.png"
+                alt="Overcast"
+              />
+              <p class="pronostico__temp__max">30°C</p>
+              <p class="pronostico__temp__min">20°C</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        App de clima
+        <p>
+          Datos proporcionados por
+          <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a
+          >.
+        </p>
+      </footer>
+    </div>
     <script src="config.js"></script>
     <script type="module" src="js/main.js"></script>
   </body>
