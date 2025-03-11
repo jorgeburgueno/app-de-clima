@@ -7,10 +7,14 @@ import {
   cargarDataPronostico,
   organizarPronostico,
   dataPronostico,
+  getPronosticoMinima,
+  getPronosticoMaxima,
+  getCondicion
 } from "./modules/api.js";
 
-async function asd(ciudad) {
+async function main(ciudad) {
   await cargarDataPronostico(ciudad);
+  console.log(getCondicion())
 }
 
-asd("culiacan");
+main("culiacan");

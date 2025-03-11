@@ -105,7 +105,19 @@ export async function organizarPronostico(pronostico) {
     };
   });
   dataPronostico = agrupado;
-  console.log(dataPronostico)
+  console.log(dataPronostico);
+}
+
+export function getPronosticoMinima() {
+  return dataPronostico.map((element) => element.minTemp);
+}
+
+export function getPronosticoMaxima() {
+  return dataPronostico.map((element) => element.maxTemp);
+}
+
+export function getCondicion() {
+  return dataPronostico.map((element) => element.condicion);
 }
 
 // obtener ubicacion
