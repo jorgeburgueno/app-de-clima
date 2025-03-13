@@ -1,9 +1,9 @@
+
 import {
   getTemperatura,
   getClima,
   getPronostico,
   getUbicacion,
-  cargarDataClima,
   cargarDataPronostico,
   organizarPronostico,
   getPronosticoMinima,
@@ -11,12 +11,18 @@ import {
   getCondicion,
   getDescripcionClima,
 } from "./modules/api.js";
+import { busquedaCiudad } from "./modules/ui.js";
 
-async function main(ciudad) {
-  const pronostico = await cargarDataPronostico(ciudad);
-  const min = getPronosticoMaxima(pronostico);
+async function busquedaClima(ciudad){
+  try {
+    const dataClima = await getClima(ciudad);
+    const temperatura = await getTemperatura(dataClima);
+    const description = await getDescripcionClima(dataClima);
 
-  console.log(min);
+    console.log(`el clima de ${ciudad} es de ${temperatura} ${description}`)
+  } catch (error) {
+    console.log('error', error)
+  }
 }
 
-main("culiacan");
+busquedaCiudad(busquedaClima);

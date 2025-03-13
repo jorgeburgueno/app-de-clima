@@ -18,9 +18,6 @@ export async function getClima(ciudad) {
   }
 }
 
-export async function cargarDataClima(ciudad) {
-  return await getClima(ciudad);
-}
 
 export async function getTemperatura(dataClima) {
   return dataClima?.main?.temp;
