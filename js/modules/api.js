@@ -49,6 +49,7 @@ export async function getPronostico(ciudad) {
     }
 
     let data = await respuesta.json();
+
     return data.list;
   } catch (error) {
     console.error("No se tuvo respuesta", error.message);
@@ -103,6 +104,7 @@ export async function organizarPronostico(pronostico) {
       condicion: condicionMasFrecuente,
     };
   });
+  console.log(agrupado)
   return agrupado;
 }
 

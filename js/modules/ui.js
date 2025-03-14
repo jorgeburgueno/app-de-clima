@@ -14,7 +14,7 @@ export function busquedaCiudad(callback) {
     }
   });
 }
-
+// Render carta principal de clima
 export function renderCiudad(ciudad) {
   const cardCiudad = document.querySelector(".card__ciudad");
 
@@ -47,4 +47,14 @@ export function renderDescripcion(description) {
   const cardDescription = document.querySelector(".card__desc");
 
   cardDescription.textContent = description;
+}
+
+// Render el pronostico de 5 dias
+
+export function renderDiaPronostico(fecha, index) {
+  const pronosticoDia = document.querySelectorAll(".pronostico__dia__nombre");
+
+  if (pronosticoDia[index]) {
+    pronosticoDia[index].textContent = fecha;
+  }
 }
