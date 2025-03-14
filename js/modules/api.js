@@ -18,6 +18,13 @@ export async function getClima(ciudad) {
   }
 }
 
+export async function getCiudad(dataClima) {
+  return dataClima?.name;
+}
+
+export async function getSens(dataClima) {
+  return dataClima?.main?.feels_like;
+}
 
 export async function getTemperatura(dataClima) {
   return dataClima?.main?.temp;
