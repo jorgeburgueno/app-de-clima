@@ -55,6 +55,47 @@ export function renderDiaPronostico(fecha, index) {
   const pronosticoDia = document.querySelectorAll(".pronostico__dia__nombre");
 
   if (pronosticoDia[index]) {
-    pronosticoDia[index].textContent = fecha;
+    pronosticoDia[index].textContent = getNombreDia(fecha);
+  }
+}
+
+export function getNombreDia(fecha) {
+  const dias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sabado",
+  ];
+  const [year, month, day] = fecha.split("-").map(Number);
+  const fechaObj = new Date(year, month - 1, day);
+  return dias[fechaObj.getDay()];
+}
+
+export function renderTemperaturaMax(temp, index) {
+  const pronosticoMax = document.querySelectorAll(".pronostico__temp__max");
+
+  if (pronosticoMax[index]) {
+    pronosticoMax[index].textContent = temp;
+  }
+}
+
+export function renderTemperaturaMin(temp, index) {
+  const pronosticoMin = document.querySelectorAll(".pronostico__temp__min");
+
+  if (pronosticoMin[index]) {
+    pronosticoMin[index].textContent = temp;
+  }
+}
+
+export function renderIcono(codigo, index) {
+  const icono = document.querySelectorAll(".pronostico__icono");
+  if (icono[index]) {
+    const iconoDia = codigo.endsWith("n") ? codigo.replace("n", "d") : codigo;
+
+    icono[index].src = `https://openweathermap.org/img/wn/${iconoDia}@2x.png`;
+    icono[index].alt = `icono del clima`;
   }
 }

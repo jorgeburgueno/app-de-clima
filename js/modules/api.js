@@ -49,20 +49,10 @@ export async function getPronostico(ciudad) {
     }
 
     let data = await respuesta.json();
-
+    console.log(data);
     return data.list;
   } catch (error) {
     console.error("No se tuvo respuesta", error.message);
-    throw error;
-  }
-}
-
-export async function cargarDataPronostico(ciudad) {
-  try {
-    const pronostico = await getPronostico(ciudad);
-    return await organizarPronostico(pronostico);
-  } catch (error) {
-    console.error("Error al cargar el pronóstico", error.message);
     throw error;
   }
 }
@@ -72,21 +62,25 @@ export async function organizarPronostico(pronostico) {
 
   pronostico.forEach((element) => {
     const fecha = element.dt_txt.split(" ")[0];
+    const icono = element.weather[0].icon;
 
     if (!pronosticoPorDia[fecha]) {
       pronosticoPorDia[fecha] = {
         temps: [element.main.temp],
         condiciones: [element.weather[0].main],
+        iconos: [icono],
       };
     } else {
       pronosticoPorDia[fecha].temps.push(element.main.temp);
       pronosticoPorDia[fecha].condiciones.push(element.weather[0].main);
+      pronosticoPorDia[fecha].iconos.push(icono);
     }
   });
 
   const agrupado = Object.keys(pronosticoPorDia).map((fecha) => {
     const temps = pronosticoPorDia[fecha].temps;
     const condiciones = pronosticoPorDia[fecha].condiciones;
+    const iconos = pronosticoPorDia[fecha].iconos;
 
     const condicion = condiciones.reduce((acc, curr) => {
       acc[curr] = (acc[curr] || 0) + 1;
@@ -97,14 +91,24 @@ export async function organizarPronostico(pronostico) {
       condicion[a] > condicion[b] ? a : b
     );
 
+    const icono = iconos.reduce((acc, curr) => {
+      acc[curr] = (acc[curr] || 0) + 1;
+      return acc;
+    }, {});
+
+    const iconoMasFrecuente = Object.keys(icono).reduce((a, b) =>
+      icono[a] > icono[b] ? a : b
+    );
+
     return {
       fecha: fecha,
       minTemp: Math.min(...temps),
       maxTemp: Math.max(...temps),
       condicion: condicionMasFrecuente,
+      icon: iconoMasFrecuente,
     };
   });
-  console.log(agrupado)
+  console.log(agrupado);
   return agrupado;
 }
 
