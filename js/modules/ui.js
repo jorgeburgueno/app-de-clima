@@ -99,3 +99,33 @@ export function renderIcono(codigo, index) {
     icono[index].alt = `icono del clima`;
   }
 }
+
+let chart = null;
+
+export function renderChart(dataPronostico) {
+  const ctx = document.getElementById("myChart");
+  const label = [];
+  const temp = [];
+
+  if (chart) {
+    chart.destroy();
+  }
+  for (let i = 0; i < 8; i++) {
+    label.push(dataPronostico[i].dt_txt.split(" ")[1]);
+    temp.push(dataPronostico[i].main.temp);
+  }
+  const data = {
+    labels: label,
+    datasets: [
+      {
+        label: "Temperatura",
+        data: temp,
+      },
+    ],
+  };
+
+  chart = new Chart(ctx, {
+    type: "line",
+    data: data,
+  });
+}

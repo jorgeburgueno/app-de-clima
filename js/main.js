@@ -22,6 +22,7 @@ import {
   renderTemperaturaMax,
   renderTemperaturaMin,
   renderIcono,
+  renderChart,
 } from "./modules/ui.js";
 
 async function busquedaClima(ciudad) {
@@ -62,8 +63,7 @@ async function busquedaPronostico(ciudad) {
       renderTemperaturaMin(element.minTemp, index);
       renderIcono(element.icon, index);
     });
-
-    console.log(organizar);
+    renderChart(dataPronostico);
   } catch (error) {
     console.log("error", error);
   }

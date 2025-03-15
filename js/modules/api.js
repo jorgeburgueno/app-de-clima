@@ -49,7 +49,7 @@ export async function getPronostico(ciudad) {
     }
 
     let data = await respuesta.json();
-    console.log(data);
+
     return data.list;
   } catch (error) {
     console.error("No se tuvo respuesta", error.message);
@@ -108,7 +108,7 @@ export async function organizarPronostico(pronostico) {
       icon: iconoMasFrecuente,
     };
   });
-  console.log(agrupado);
+
   return agrupado;
 }
 
