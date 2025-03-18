@@ -25,6 +25,8 @@ import {
   renderChart,
 } from "./modules/ui.js";
 
+const CIUDAD_DEFAULT = "Culiacan";
+
 async function busquedaClima(ciudad) {
   try {
     const dataClima = await getClima(ciudad);
@@ -38,8 +40,13 @@ async function busquedaClima(ciudad) {
     await renderSensacionTermica(sensacion);
     await renderFechaActual();
     await renderDescripcion(description);
+
+    busquedaPronostico(ciudad);
   } catch (error) {
     console.log("error", error);
+    alert(
+      `No se pudo encontrar la ciudad "${ciudad}". Por favor intente nuevamente.`
+    );
   }
 }
 
@@ -70,4 +77,4 @@ async function busquedaPronostico(ciudad) {
 }
 
 busquedaCiudad(busquedaClima);
-busquedaCiudad(busquedaPronostico);
+busquedaClima(CIUDAD_DEFAULT)ñ
