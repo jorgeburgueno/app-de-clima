@@ -163,24 +163,32 @@ export async function getClimaPorUbicacion(lat, lon) {
 }
 // api de geolocalizacion
 
-export function getUbicacion() {
-  if (navigator.geolocation) {
+export async function getUbicacion() {
+  if (!navigator.geolocation) {
+    console.log("Geolocalización no es compatible con este navegador.");
+    return null;
+  }
+
+  return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       async (posicion) => {
         const lat = posicion.coords.latitude;
         const lon = posicion.coords.longitude;
 
         try {
-          const clima = await getClimaPorUbicacion(lat, lon);
+          const dataClima = await getClimaPorUbicacion(lat, lon);
+          const nombre = await getCiudad(dataClima);
+
+          resolve(nombre);
         } catch (error) {
-          console.log("No se pudo obtener el clima por ubicación.");
+          console.error("No se pudo obtener el clima por ubicación:", error);
+          reject(error);
         }
       },
       (error) => {
         console.error("Error al obtener la ubicación:", error.message);
+        reject(error);
       }
     );
-  } else {
-    console.log("Geolocalización no es compatible con este navegador.");
-  }
+  });
 }

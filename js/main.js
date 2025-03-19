@@ -76,5 +76,19 @@ async function busquedaPronostico(ciudad) {
   }
 }
 
-busquedaCiudad(busquedaClima);
-busquedaClima(CIUDAD_DEFAULT)ñ
+async function obtenerClimaPorUbicacionActual() {
+  try {
+    const ciudad = await getUbicacion();
+    await busquedaClima(ciudad);
+    await busquedaPronostico(ciudad);
+  } catch (error) {
+    console.error("Error al obtener ubicación:", error);
+    busquedaClima(CIUDAD_DEFAULT);
+  }
+}
+
+async function iniApp() {
+  busquedaCiudad(busquedaClima);
+  obtenerClimaPorUbicacionActual();
+}
+iniApp();
