@@ -156,3 +156,92 @@ export function navegacion() {
     });
   });
 }
+
+export function autocompletar() {
+  const busquedaInput = document.querySelector(".busqueda-input");
+  const API_KEY = config.API_KEY;
+  let contenedorSugerencia;
+  let timer;
+
+  const sugerenciaCache = {};
+
+  function crearContenedorSugerencia() {
+    contenedorSugerencia = document.createElement("div");
+    contenedorSugerencia.className = "contenedor-sugerencia";
+    busquedaInput.parentNode.appendChild(contenedorSugerencia);
+    contenedorSugerencia.style.display = "none";
+  }
+
+  busquedaInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+
+    if (!query) {
+      contenedorSugerencia.style.display = "none";
+      return;
+    }
+
+    if (query.length < 3) return;
+
+    clearTimeout(timer);
+
+    timer = setTimeout(async () => {
+      if (sugerenciaCache[query]) {
+        displaySugerencia(sugerenciaCache[query]);
+        return;
+      }
+      try {
+        const respuesta = await fetch(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
+        );
+        if (!respuesta.ok) {
+          throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+        }
+
+        const ciudad = await respuesta.json();
+        sugerenciaCache[query] = ciudad;
+
+        displaySugerencia(ciudad);
+      } catch (error) {
+        console.log("no se pudo obtener la ciudad", error);
+      }
+    }, 500);
+  });
+
+  function displaySugerencia(ciudad) {
+    contenedorSugerencia.innerHTML = "";
+
+    if (ciudad.length > 0) {
+      ciudad.forEach((city) => {
+        const sugerencia = document.createElement("div");
+        sugerencia.className = "sugerencia-item";
+        sugerencia.textContent = `${city.name}, ${city.country}`;
+        sugerencia.addEventListener("click", () => {
+          busquedaInput.value = city.name;
+          contenedorSugerencia.style.display = "none";
+
+          const busquedaEvento = new Event("search");
+          busquedaInput.dispatchEvent(busquedaEvento);
+        });
+
+        contenedorSugerencia.appendChild(sugerencia);
+      });
+
+      contenedorSugerencia.style.display = "block";
+    } else {
+      contenedorSugerencia.style.display = "none";
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    if (e.target !== busquedaInput && e.target !== contenedorSugerencia) {
+      contenedorSugerencia.style.display = "none";
+    }
+  });
+
+  busquedaInput.addEventListener("search", () => {
+    const searchBtn = document.querySelector(".busqueda-btn");
+    searchBtn.click();
+  });
+
+  crearContenedorSugerencia();
+}

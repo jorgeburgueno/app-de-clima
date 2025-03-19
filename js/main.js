@@ -24,6 +24,7 @@ import {
   renderIcono,
   renderChart,
   navegacion,
+  autocompletar
 } from "./modules/ui.js";
 
 const CIUDAD_DEFAULT = "Culiacan";
@@ -92,5 +93,6 @@ async function iniApp() {
   busquedaCiudad(busquedaClima);
   obtenerClimaPorUbicacionActual();
   navegacion();
+  autocompletar()
 }
 document.addEventListener("DOMContentLoaded", iniApp);
