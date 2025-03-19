@@ -86,3 +86,6 @@ footer a:hover {
     margin-bottom: 10px;
   }
 }
+html {
+  scroll-behavior: smooth;
+}

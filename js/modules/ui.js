@@ -129,3 +129,30 @@ export function renderChart(dataPronostico) {
     data: data,
   });
 }
+
+export function navegacion() {
+  const navLinks = document.querySelectorAll(".nav__link");
+  const sections = {
+    Hoy: document.querySelector(".card"),
+    "Temperatura por Hora": document.querySelector(".grafica"),
+    "Pronostico Semanal": document.querySelector(".pronostico"),
+  };
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const targetText = this.textContent.trim();
+      const targetSection = sections[targetText];
+
+      if (targetSection) {
+        const offset = 60;
+        const targetPosition = targetSection.offsetTop - offset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
+}
