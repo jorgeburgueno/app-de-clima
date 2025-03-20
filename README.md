@@ -22,7 +22,8 @@ Utiliza la API de OpenWeatherMap para obtener datos meteorológicos en tiempo re
 - **Chart.js** para visualización de datos  
 - **API de OpenWeatherMap**  
 - **API de Geolocalización del navegador**  
-Instalación
+
+## Instalación
 
 Clona este repositorio en tu máquina local
 Crea un archivo config.js en la raíz del proyecto con el siguiente contenido:
