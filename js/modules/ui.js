@@ -212,7 +212,12 @@ export function autocompletar() {
     contenedorSugerencia = document.createElement("div");
     contenedorSugerencia.className = "contenedor-sugerencia";
     busquedaInput.parentNode.appendChild(contenedorSugerencia);
+    contenedorSugerencia.style.position = "absolute";
+    contenedorSugerencia.style.top = `${busquedaInput.offsetTop + busquedaInput.offsetHeight}px`;
+    contenedorSugerencia.style.left = `${busquedaInput.offsetLeft}px`;
+    contenedorSugerencia.style.width = `${busquedaInput.offsetWidth}px`;
     contenedorSugerencia.style.display = "none";
+    contenedorSugerencia.style.zIndex = "1000";
   }
 
   busquedaInput.addEventListener("input", (e) => {
