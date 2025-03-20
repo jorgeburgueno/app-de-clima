@@ -42,11 +42,11 @@ Consulta el pronóstico de 5 días y la gráfica de temperatura por hora
 
 ## Estructura del proyecto
 
-index.html: Estructura principal de la aplicación
-css/styles.css: Estilos de la aplicación
-js/main.js: Archivo principal de JavaScript
-modules/api.js: Módulo para interactuar con la API de OpenWeatherMap
-modules/ui.js: Módulo para manipular la interfaz de usuario
+- index.html: Estructura principal de la aplicación
+- css/styles.css: Estilos de la aplicación
+- js/main.js: Archivo principal de JavaScript
+- modules/api.js: Módulo para interactuar con la API de OpenWeatherMap
+- modules/ui.js: Módulo para manipular la interfaz de usuario
 
 
 
