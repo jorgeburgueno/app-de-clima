@@ -101,6 +101,7 @@ export function renderIcono(codigo, index) {
 }
 
 let chart = null;
+
 export function renderChart(dataPronostico) {
   const ctx = document.getElementById("myChart");
 
@@ -113,9 +114,41 @@ export function renderChart(dataPronostico) {
     chart.destroy();
   }
 
-  for (let i = 0; i < Math.min(dataPronostico.length, 8); i++) {
-    const time = dataPronostico[i].dt_txt.split(" ")[1].substr(0, 5);
-    label.push(time);
+  const now = new Date();
+  const currentTime = now.toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  let startIndex = 0;
+  for (let i = 0; i < dataPronostico.length; i++) {
+    const forecastTimeUTC = new Date(dataPronostico[i].dt_txt + "Z");
+    const forecastTimeLocal = forecastTimeUTC.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    if (forecastTimeLocal >= currentTime) {
+      startIndex = i;
+      break;
+    }
+  }
+
+  for (
+    let i = startIndex;
+    i < Math.min(startIndex + 8, dataPronostico.length);
+    i++
+  ) {
+    const forecastTimeUTC = new Date(dataPronostico[i].dt_txt + "Z");
+    const forecastTimeLocal = forecastTimeUTC.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    label.push(forecastTimeLocal);
     temp.push(dataPronostico[i].main.temp);
   }
 
