@@ -1,32 +1,39 @@
-Aplicación de Clima
-Descripción
-Esta aplicación web permite consultar el clima actual y el pronóstico de los próximos 5 días para cualquier ciudad del mundo. Utiliza la API de OpenWeatherMap para obtener datos meteorológicos en tiempo real.
-Características
 
-Visualización del clima actual (temperatura, sensación térmica y descripción)
-Pronóstico de 5 días con temperaturas máximas y mínimas
-Gráfica de temperatura por hora
-Búsqueda de ciudades con autocompletado
-Geolocalización para detectar automáticamente la ubicación del usuario
-Diseño responsivo para adaptarse a diferentes tamaños de pantalla
-Navegación intuitiva entre secciones
+```md
+# Aplicación de Clima  
 
-Tecnologías utilizadas
+![Vista previa de la aplicación](assets/screenshot.png)  
 
--HTML5
--CSS3
--JavaScript (ES6+)
--Chart.js para visualización de datos
--API de OpenWeatherMap
--API de Geolocalización del navegador
+## Descripción  
+Esta aplicación web permite consultar el clima actual y el pronóstico de los próximos 5 días para cualquier ciudad del mundo.  
+Utiliza la API de OpenWeatherMap para obtener datos meteorológicos en tiempo real.  
 
+## Características  
+- Visualización del clima actual (temperatura, sensación térmica y descripción).  
+- Pronóstico de 5 días con temperaturas máximas y mínimas.  
+- Gráfica de temperatura por hora.  
+- Búsqueda de ciudades con autocompletado.  
+- Geolocalización para detectar automáticamente la ubicación del usuario.  
+- Diseño responsivo para adaptarse a diferentes tamaños de pantalla.  
+- Navegación intuitiva entre secciones.  
+
+## Tecnologías utilizadas  
+- **HTML5**  
+- **CSS3**  
+- **JavaScript (ES6+)**  
+- **Chart.js** para visualización de datos  
+- **API de OpenWeatherMap**  
+- **API de Geolocalización del navegador**  
 Instalación
 
 Clona este repositorio en tu máquina local
 Crea un archivo config.js en la raíz del proyecto con el siguiente contenido:
+
+```js
 const config = {
 API_KEY: "TU_API_KEY_DE_OPENWEATHERMAP"
 };
+```
 
 Uso
 
@@ -43,7 +50,7 @@ js/main.js: Archivo principal de JavaScript
 modules/api.js: Módulo para interactuar con la API de OpenWeatherMap
 modules/ui.js: Módulo para manipular la interfaz de usuario
 
-![Vista previa de la aplicación](assets/screenshot.png)
+
 
 Créditos
 
