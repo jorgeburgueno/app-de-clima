@@ -1,5 +1,3 @@
-
-```md
 # Aplicación de Clima  
 
 ![Vista previa de la aplicación](assets/screenshot.png)  
