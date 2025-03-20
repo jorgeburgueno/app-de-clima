@@ -27,10 +27,12 @@
       </header>
 
       <main>
-        <section class="card">
-          <h2 class="card__ciudad">Ciudad</h2>
-          <h2 class="card__temp">23°C</h2>
-          <p class="card__sens">25°C</p>
+        <section class="card" id="hoy" aria-labelledby="current-weather-title">
+          <h2 id="current-weather-title" class="card__ciudad">Ciudad</h2>
+          <div class="card__temp-container">
+            <h2 class="card__temp">23°C</h2>
+            <p class="card__sens">25°C</p>
+          </div>
           <p class="card__fecha">11 de Marzo</p>
           <p class="card__desc">Soleado</p>
         </section>

@@ -113,25 +113,11 @@ export function renderChart(dataPronostico) {
     chart.destroy();
   }
 
-  const now = new Date();
-  const currentHour = now.getHours();
-
-  // Filter data to start from the nearest available time
-  const filteredData = dataPronostico.filter((item) => {
-    const itemHour = new Date(item.dt_txt).getHours();
-    return itemHour >= currentHour;
-  }).slice(0, 8); // Get the next 8 available data points
-
-  // Populate labels and temperature
-  filteredData.forEach((item) => {
-    const time = new Date(item.dt_txt).toLocaleTimeString("es-MX", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+  for (let i = 0; i < Math.min(dataPronostico.length, 8); i++) {
+    const time = dataPronostico[i].dt_txt.split(" ")[1].substr(0, 5);
     label.push(time);
-    temp.push(item.main.temp);
-  });
+    temp.push(dataPronostico[i].main.temp);
+  }
 
   const data = {
     labels: label,
