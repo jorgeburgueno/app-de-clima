@@ -33,14 +33,14 @@ API_KEY: "TU_API_KEY_DE_OPENWEATHERMAP"
 };
 ```
 
-Uso
+## Uso
 
 Al cargar la aplicación, se mostrará el clima de tu ubicación actual (si permites el acceso a la geolocalización)
 Puedes buscar cualquier ciudad escribiendo su nombre en el campo de búsqueda
 Navega entre las diferentes secciones utilizando los enlaces en la parte superior
 Consulta el pronóstico de 5 días y la gráfica de temperatura por hora
 
-Estructura del proyecto
+## Estructura del proyecto
 
 index.html: Estructura principal de la aplicación
 css/styles.css: Estilos de la aplicación
@@ -50,7 +50,7 @@ modules/ui.js: Módulo para manipular la interfaz de usuario
 
 
 
-Créditos
+## Créditos
 
 Este proyecto usa datos obtenidos en [OpenWeatherMap](https://openweathermap.org/).
 Iconos de clima de OpenWeatherMap
