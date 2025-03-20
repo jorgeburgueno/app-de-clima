@@ -4,9 +4,6 @@ import {
   getPronostico,
   getUbicacion,
   organizarPronostico,
-  getPronosticoMinima,
-  getPronosticoMaxima,
-  getCondicion,
   getDescripcionClima,
   getCiudad,
   getSens,
@@ -24,7 +21,7 @@ import {
   renderIcono,
   renderChart,
   navegacion,
-  autocompletar
+  autocompletar,
 } from "./modules/ui.js";
 
 const CIUDAD_DEFAULT = "Culiacan";
@@ -93,6 +90,6 @@ async function iniApp() {
   busquedaCiudad(busquedaClima);
   obtenerClimaPorUbicacionActual();
   navegacion();
-  autocompletar()
+  autocompletar();
 }
 document.addEventListener("DOMContentLoaded", iniApp);

@@ -101,25 +101,51 @@ export function renderIcono(codigo, index) {
 }
 
 let chart = null;
-
 export function renderChart(dataPronostico) {
   const ctx = document.getElementById("myChart");
+
+  if (!ctx) return;
+
   const label = [];
   const temp = [];
 
   if (chart) {
     chart.destroy();
   }
-  for (let i = 0; i < 8; i++) {
-    label.push(dataPronostico[i].dt_txt.split(" ")[1]);
-    temp.push(dataPronostico[i].main.temp);
-  }
+
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  // Filter data to start from the nearest available time
+  const filteredData = dataPronostico.filter((item) => {
+    const itemHour = new Date(item.dt_txt).getHours();
+    return itemHour >= currentHour;
+  }).slice(0, 8); // Get the next 8 available data points
+
+  // Populate labels and temperature
+  filteredData.forEach((item) => {
+    const time = new Date(item.dt_txt).toLocaleTimeString("es-MX", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+    label.push(time);
+    temp.push(item.main.temp);
+  });
+
   const data = {
     labels: label,
     datasets: [
       {
-        label: "Temperatura",
+        label: "Temperatura (°C)",
         data: temp,
+        borderColor: "#4a6cf7",
+        backgroundColor: "rgba(74, 108, 247, 0.2)",
+        borderWidth: 2,
+        tension: 0.4,
+        pointBackgroundColor: "#4a6cf7",
+        pointRadius: 4,
+        fill: true,
       },
     ],
   };
@@ -127,6 +153,37 @@ export function renderChart(dataPronostico) {
   chart = new Chart(ctx, {
     type: "line",
     data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        tooltip: {
+          mode: "index",
+          intersect: false,
+          callbacks: {
+            label: function (context) {
+              return context.dataset.label + ": " + context.parsed.y + "°C";
+            },
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          grid: {
+            color: "rgba(0, 0, 0, 0.05)",
+          },
+        },
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+      },
+    },
   });
 }
 
